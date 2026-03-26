@@ -734,27 +734,24 @@
     <div class="modal-inner">
 
       <div id="selectorView" class="modal-view">
-        <div class="pill-note">choose wisely baby</div>
-        <h1 class="modal-title">is it your:</h1>
+        <div class="pill-note">Juleeeeh Baby</div>
+        <h1 class="modal-title">Today is?</h1>
         <div class="option-grid">
-          <button class="option-card" id="birthdayChoice1" type="button">
-            birthday
-            <small>one of these is definitely right</small>
+          <button class="option-card" id="nothingChoice" type="button">
+            Nothing
           </button>
-          <button class="option-card" id="birthdayChoice2" type="button">
-            birthday
-            <small>just making sure you know the answer 😭</small>
+          <button class="option-card" id="birthdayChoice1" type="button">
+            Birthday🎈
           </button>
           <button class="option-card" id="valentineChoice" type="button">
-            valentine's
-            <small>this keeps your old valentine flow untouched</small>
+            Valentines🌹
           </button>
         </div>
       </div>
 
       <div id="dobView" class="modal-view">
         <h1 class="modal-title">confirm date of birth</h1>
-        <p class="subtext">only the real birthday girl gets past this page.</p>
+        <p class="subtext">only My Kababy's birth date works here!</p>
         <div class="dob-card">
           <label class="dob-label">enter your date of birth</label>
           <div class="dob-inputs">
@@ -762,12 +759,21 @@
             <input id="dobDay" class="dob-input" type="text" placeholder="Day" />
             <input id="dobYear" class="dob-input" type="text" placeholder="Year" />
           </div>
-          <p class="dob-hint">Correct answer: March 26 2004</p>
+          <p class="dob-hint">Hint: Month in words and the rest in numbers</p>
           <p class="error-text" id="dobError"></p>
           <div class="btn-row" style="justify-content:flex-start; margin-top:16px;">
             <button type="button" class="dob-submit" id="dobSubmitBtn">Confirm</button>
             <button type="button" class="reset-btn" id="dobBackBtn">Back</button>
           </div>
+        </div>
+      </div>
+
+      <div id="nothingView" class="modal-view">
+        <div class="wrong-wrap">
+          <div class="wrong-emoji">😔</div>
+          <h1 class="modal-title" style="margin-top:0;">so not today</h1>
+          <p class="subtext" style="margin:0;">damn, okay then 😔</p>
+          <button type="button" class="reset-btn" id="nothingResetBtn">Reset</button>
         </div>
       </div>
 
@@ -941,6 +947,7 @@ happy birthday baby, enjoy your day. 🌹</div>
     const views = {
       selector: document.getElementById('selectorView'),
       dob: document.getElementById('dobView'),
+      nothing: document.getElementById('nothingView'),
       wrong: document.getElementById('wrongPersonView'),
       ttt: document.getElementById('tictactoeView'),
       birthdayLose: document.getElementById('birthdayLoseView'),
@@ -980,8 +987,8 @@ happy birthday baby, enjoy your day. 🌹</div>
       }, 380);
     });
 
+    document.getElementById('nothingChoice').addEventListener('click', () => showView(views.nothing));
     document.getElementById('birthdayChoice1').addEventListener('click', () => showView(views.dob));
-    document.getElementById('birthdayChoice2').addEventListener('click', () => showView(views.dob));
     document.getElementById('valentineChoice').addEventListener('click', () => showView(views.puzzle));
     document.getElementById('dobBackBtn').addEventListener('click', () => showView(views.selector));
 
@@ -1017,6 +1024,7 @@ happy birthday baby, enjoy your day. 🌹</div>
       }
     });
 
+    document.getElementById('nothingResetBtn').addEventListener('click', resetAll);
     document.getElementById('wrongResetBtn').addEventListener('click', resetAll);
     document.getElementById('loseResetBtn').addEventListener('click', resetAll);
     document.getElementById('birthdayResetBtn').addEventListener('click', resetAll);
@@ -1035,6 +1043,7 @@ happy birthday baby, enjoy your day. 🌹</div>
     const CPU = 'O';
     let tttBoard = Array(9).fill('');
     let tttGameOver = false;
+    let tttAttemptCount = 0;
 
     const winningLines = [
       [0,1,2],[3,4,5],[6,7,8],
@@ -1057,30 +1066,40 @@ happy birthday baby, enjoy your day. 🌹</div>
     function cpuMove() {
       if (tttGameOver) return;
 
-      // win if possible
+      const easierMode = tttAttemptCount >= 4;
+
+      if (!easierMode) {
+        for (const move of availableMoves(tttBoard)) {
+          const copy = [...tttBoard];
+          copy[move] = CPU;
+          if (checkWinner(copy, CPU)) return move;
+        }
+
+        for (const move of availableMoves(tttBoard)) {
+          const copy = [...tttBoard];
+          copy[move] = HUMAN;
+          if (checkWinner(copy, HUMAN)) return move;
+        }
+
+        if (tttBoard[4] === '') return 4;
+
+        const corners = [0,2,6,8].filter(i => tttBoard[i] === '');
+        if (corners.length) return corners[Math.floor(Math.random() * corners.length)];
+
+        const sides = [1,3,5,7].filter(i => tttBoard[i] === '');
+        if (sides.length) return sides[Math.floor(Math.random() * sides.length)];
+
+        return null;
+      }
+
       for (const move of availableMoves(tttBoard)) {
         const copy = [...tttBoard];
         copy[move] = CPU;
         if (checkWinner(copy, CPU)) return move;
       }
 
-      // block human win
-      for (const move of availableMoves(tttBoard)) {
-        const copy = [...tttBoard];
-        copy[move] = HUMAN;
-        if (checkWinner(copy, HUMAN)) return move;
-      }
-
-      // center
-      if (tttBoard[4] === '') return 4;
-
-      // corners
-      const corners = [0,2,6,8].filter(i => tttBoard[i] === '');
-      if (corners.length) return corners[Math.floor(Math.random() * corners.length)];
-
-      // sides
-      const sides = [1,3,5,7].filter(i => tttBoard[i] === '');
-      if (sides.length) return sides[Math.floor(Math.random() * sides.length)];
+      const relaxedMoves = [1, 3, 5, 7, 0, 2, 6, 8, 4].filter(i => tttBoard[i] === '');
+      if (relaxedMoves.length) return relaxedMoves[0];
 
       return null;
     }
@@ -1092,6 +1111,8 @@ happy birthday baby, enjoy your day. 🌹</div>
         cell.className = 'ttt-cell';
         cell.type = 'button';
         cell.textContent = value;
+        if (value === HUMAN) cell.style.color = '#e63946';
+        if (value === CPU) cell.style.color = '#2563eb';
         cell.disabled = !!value || tttGameOver;
         cell.addEventListener('click', () => handleHumanMove(index));
         tttBoardEl.appendChild(cell);
@@ -1136,9 +1157,10 @@ happy birthday baby, enjoy your day. 🌹</div>
     }
 
     function initTicTacToe() {
+      tttAttemptCount += 1;
       tttBoard = Array(9).fill('');
       tttGameOver = false;
-      tttStatus.textContent = 'Your turn — you are X';
+      tttStatus.textContent = tttAttemptCount >= 4 ? 'Your turn — you are X (okay fine, I will go easier now 😭)' : 'Your turn — you are X';
       renderTicTacToe();
     }
 
