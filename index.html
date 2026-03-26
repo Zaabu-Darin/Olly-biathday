@@ -370,44 +370,176 @@
       display: flex;
       justify-content: center;
       margin-bottom: 22px;
+      perspective: 1400px;
     }
 
-    .letter-envelope-btn {
-      background: linear-gradient(145deg, #f7e7d7 0%, #e8d5c4 100%);
-      border: 1px solid rgba(0,0,0,0.08);
-      border-radius: 20px;
-      padding: 22px 28px;
-      min-width: 260px;
-      cursor: pointer;
-      box-shadow: 0 18px 34px rgba(0,0,0,0.12);
-      transition: transform 0.22s ease, box-shadow 0.22s ease;
-      text-align: center;
+    .letter-envelope-scene {
       position: relative;
+      width: min(640px, 92vw);
+      height: 420px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+    }
+
+    .letter-envelope-wrap {
+      position: relative;
+      width: min(520px, 86vw);
+      height: 320px;
+    }
+
+    .letter-sheet {
+      position: absolute;
+      left: 50%;
+      bottom: 62px;
+      transform: translateX(-50%) translateY(150px) scale(0.92);
+      width: 82%;
+      height: 240px;
+      border-radius: 18px 18px 8px 8px;
+      background: linear-gradient(180deg, #fffaf2 0%, #fff3e3 100%);
+      border: 1px solid rgba(118, 78, 36, 0.18);
+      box-shadow: 0 14px 28px rgba(116, 85, 58, 0.16);
+      z-index: 1;
       overflow: hidden;
+      transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.6s ease;
     }
 
-    .letter-envelope-btn:hover {
-      transform: translateY(-4px) scale(1.02);
-      box-shadow: 0 24px 44px rgba(0,0,0,0.16);
-    }
-
-    .letter-envelope-btn::before {
+    .letter-sheet::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(160deg, transparent 0 42%, rgba(0,0,0,0.05) 42% 43%, transparent 43% 100%);
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(120, 78, 36, 0.06) 0px,
+        rgba(120, 78, 36, 0.06) 1px,
+        transparent 1px,
+        transparent 30px
+      );
+      opacity: 0.65;
+    }
+
+    .letter-sheet-preview {
+      position: absolute;
+      inset: 24px 26px auto 26px;
+      font-family: 'Segoe Print', 'Lucida Handwriting', 'Brush Script MT', 'Segoe Script', cursive;
+      font-size: 19px;
+      line-height: 1.6;
+      color: #6b4c33;
+      z-index: 1;
+      opacity: 0.88;
+    }
+
+    .letter-envelope-back,
+    .letter-envelope-front,
+    .letter-envelope-flap {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      border-radius: 18px;
+    }
+
+    .letter-envelope-back {
+      bottom: 0;
+      height: 210px;
+      background: linear-gradient(180deg, #f5e6d3 0%, #ead7c2 100%);
+      border: 1px solid rgba(118, 78, 36, 0.14);
+      box-shadow: 0 20px 38px rgba(0,0,0,0.12);
+      z-index: 0;
+    }
+
+    .letter-envelope-front {
+      bottom: 0;
+      height: 190px;
+      background: linear-gradient(180deg, #f2dfc9 0%, #e4cdb1 100%);
+      border: 1px solid rgba(118, 78, 36, 0.14);
+      clip-path: polygon(0 100%, 0 0, 50% 58%, 100% 0, 100% 100%);
+      z-index: 3;
+    }
+
+    .letter-envelope-flap {
+      bottom: 96px;
+      height: 130px;
+      background: linear-gradient(180deg, #ead7c2 0%, #ddc3a4 100%);
+      border: 1px solid rgba(118, 78, 36, 0.14);
+      clip-path: polygon(0 100%, 50% 0, 100% 100%);
+      transform: translateX(-50%) rotateX(0deg);
+      transform-origin: center bottom;
+      z-index: 4;
+      transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+      backface-visibility: hidden;
+    }
+
+    .letter-bird {
+      position: absolute;
+      left: 50%;
+      bottom: 128px;
+      transform: translateX(-50%) translateY(30px) scale(0.7);
+      font-size: 38px;
+      z-index: 2;
+      opacity: 0;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.12));
+      transition: opacity 0.2s ease;
       pointer-events: none;
     }
 
-    .letter-envelope-title {
-      font-size: 22px;
-      font-weight: 800;
-      margin-bottom: 6px;
+    .letter-envelope-scene.opening .letter-envelope-flap {
+      transform: translateX(-50%) rotateX(-178deg);
     }
 
-    .letter-envelope-sub {
-      font-size: 14px;
-      color: #5c514b;
+    .letter-envelope-scene.opening .letter-sheet {
+      transform: translateX(-50%) translateY(-86px) scale(1);
+      box-shadow: 0 24px 42px rgba(116, 85, 58, 0.2);
+    }
+
+    .letter-envelope-scene.opening .letter-bird {
+      opacity: 1;
+      animation: birdFlyOut 1.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    @keyframes birdFlyOut {
+      0% {
+        transform: translateX(-50%) translateY(30px) scale(0.75) rotate(-8deg);
+        opacity: 0;
+      }
+      15% {
+        opacity: 1;
+      }
+      55% {
+        transform: translateX(36px) translateY(-78px) scale(1.05) rotate(10deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateX(180px) translateY(-180px) scale(0.9) rotate(18deg);
+        opacity: 0;
+      }
+    }
+
+    .letter-open-trigger {
+      position: absolute;
+      left: 50%;
+      bottom: -54px;
+      transform: translateX(-50%);
+      border: none;
+      border-radius: 999px;
+      padding: 14px 24px;
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      color: white;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 14px 24px rgba(245, 87, 108, 0.25);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.25s ease;
+      z-index: 5;
+    }
+
+    .letter-open-trigger:hover {
+      transform: translateX(-50%) translateY(-2px);
+      box-shadow: 0 18px 30px rgba(245, 87, 108, 0.3);
+    }
+
+    .letter-open-trigger.hidden {
+      opacity: 0;
+      pointer-events: none;
     }
 
     .birthday-letter-paper {
@@ -423,10 +555,11 @@
         );
       border: 1px solid rgba(118, 78, 36, 0.18);
       border-radius: 28px;
-      padding: 64px 28px 28px;
+      padding: 44px 28px 28px;
       box-shadow: 0 24px 48px rgba(116, 85, 58, 0.18);
       position: relative;
-      overflow: visible;
+      overflow: hidden;
+      margin-top: 84px;
     }
 
     .birthday-letter-paper.show {
@@ -437,7 +570,7 @@
     .birthday-letter-paper::before {
       content: '🎂  🕯️  🌹  ✨  🎈';
       position: absolute;
-      top: 18px;
+      top: 14px;
       left: 50%;
       transform: translateX(-50%);
       font-size: 22px;
@@ -945,10 +1078,20 @@
       <div id="birthdayLetterView" class="modal-view">
         <div class="birthday-letter-shell">
           <div class="letter-open-stage">
-            <button type="button" class="letter-envelope-btn" id="openLetterBtn">
-              <div class="letter-envelope-title">Open your birthday letter 💌</div>
-              <div class="letter-envelope-sub">a sweeter little surprise is inside</div>
-            </button>
+            <div class="letter-envelope-scene" id="letterEnvelopeScene">
+              <div class="letter-envelope-wrap">
+                <div class="letter-sheet">
+                  <div class="letter-sheet-preview">For Julie,
+
+I wanted this to feel like a real little letter for you… 💌</div>
+                </div>
+                <div class="letter-envelope-back"></div>
+                <div class="letter-bird">🕊️</div>
+                <div class="letter-envelope-flap"></div>
+                <div class="letter-envelope-front"></div>
+                <button type="button" class="letter-open-trigger" id="openLetterBtn">Open your birthday letter 💌</button>
+              </div>
+            </div>
           </div>
 
           <div class="birthday-letter-paper paper-script" id="birthdayLetterPaper">
@@ -1181,14 +1324,16 @@ happy birthday baby, enjoy your day. 🌹</div>
       }, 80);
     });
     document.getElementById('openLetterBtn').addEventListener('click', () => {
-      document.getElementById('birthdayLetterPaper').classList.add('show');
-      document.getElementById('openLetterBtn').style.display = 'none';
+      const scene = document.getElementById('letterEnvelopeScene');
+      const paper = document.getElementById('birthdayLetterPaper');
+      const trigger = document.getElementById('openLetterBtn');
+      scene.classList.add('opening');
+      trigger.classList.add('hidden');
       runConfettiFor(1800);
       setTimeout(() => {
-        container.scrollTo({ top: 0, behavior: 'smooth' });
-        const paper = document.getElementById('birthdayLetterPaper');
-        if (paper) paper.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 80);
+        paper.classList.add('show');
+        paper.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 920);
     });
 
     const surpriseBtn = document.getElementById('surpriseBtn');
