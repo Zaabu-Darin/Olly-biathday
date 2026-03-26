@@ -448,32 +448,35 @@
     }
 
     .paper-script,
-    .paper-script .birthday-intro,
-    .paper-script .letter-text,
-    .paper-script .poem-text,
-    .paper-script .memory-pill,
-    .paper-script .photo-caption,
-    .paper-script .section-title,
-    .paper-script .birthday-title,
-    .paper-script .birthday-kicker {
-      font-family: 'Lucida Handwriting', 'Brush Script MT', 'Segoe Script', cursive;
+    .paper-script * {
+      font-family: 'Segoe Print', 'Lucida Handwriting', 'Brush Script MT', 'Segoe Script', cursive !important;
     }
 
     .paper-script .birthday-title {
       font-size: clamp(34px, 4vw, 50px);
       line-height: 1.2;
+      font-weight: 700;
     }
 
     .paper-script .section-title {
       font-size: 28px;
       line-height: 1.2;
+      font-weight: 700;
     }
 
     .paper-script .birthday-intro,
     .paper-script .letter-text,
-    .paper-script .poem-text {
+    .paper-script .poem-text,
+    .paper-script .memory-pill,
+    .paper-script .photo-caption {
       font-size: 20px;
       line-height: 1.9;
+      font-weight: 500;
+    }
+
+    .paper-script .photo-caption {
+      font-size: 16px;
+      line-height: 1.4;
     }
       width: min(900px, 100%);
       margin: 0 auto;
@@ -562,11 +565,11 @@
     .letter-card,
     .poem-card,
     .memory-card {
-      background: white;
+      background: rgba(255, 250, 243, 0.88);
       border-radius: 24px;
       padding: 24px;
-      border: 1px solid rgba(0,0,0,0.08);
-      box-shadow: 0 12px 26px rgba(0,0,0,0.08);
+      border: 1px solid rgba(118, 78, 36, 0.14);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.35), 0 12px 26px rgba(116, 85, 58, 0.08);
     }
 
     .section-title {
@@ -595,7 +598,7 @@
       border-radius: 18px;
       overflow: hidden;
       min-height: 210px;
-      background: rgba(255, 218, 233, 0.4);
+      background: rgba(245, 232, 217, 0.92);
       border: 1px solid rgba(0,0,0,0.08);
       transform: rotate(var(--tilt, 0deg));
       transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -948,8 +951,8 @@
             </button>
           </div>
 
-          <div class="birthday-letter-paper" id="birthdayLetterPaper">
-          <div class="birthday-hero paper-script">
+          <div class="birthday-letter-paper paper-script" id="birthdayLetterPaper">
+          <div class="birthday-hero">
             <div class="floating-heart">❤️</div>
             <div class="floating-heart">💌</div>
             <div class="floating-heart">✨</div>
@@ -1169,11 +1172,23 @@ happy birthday baby, enjoy your day. 🌹</div>
     document.getElementById('loseResetBtn').addEventListener('click', resetAll);
     document.getElementById('birthdayResetBtn').addEventListener('click', resetAll);
     document.getElementById('birthdayResetBtnBottom').addEventListener('click', resetAll);
-    document.getElementById('birthdayNextBtn').addEventListener('click', () => showView(views.birthdayLetter));
+    document.getElementById('birthdayNextBtn').addEventListener('click', () => {
+      showView(views.birthdayLetter);
+      setTimeout(() => {
+        container.scrollTo({ top: 0, behavior: 'smooth' });
+        const shell = document.querySelector('.birthday-letter-shell');
+        if (shell) shell.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 80);
+    });
     document.getElementById('openLetterBtn').addEventListener('click', () => {
       document.getElementById('birthdayLetterPaper').classList.add('show');
       document.getElementById('openLetterBtn').style.display = 'none';
       runConfettiFor(1800);
+      setTimeout(() => {
+        container.scrollTo({ top: 0, behavior: 'smooth' });
+        const paper = document.getElementById('birthdayLetterPaper');
+        if (paper) paper.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 80);
     });
 
     const surpriseBtn = document.getElementById('surpriseBtn');
