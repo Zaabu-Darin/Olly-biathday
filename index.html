@@ -485,49 +485,13 @@
       height: 100%;
     }
 
+    /* remove preview sheet inside the birthday envelope */
     .birthday-envelope-letter {
-      position: absolute;
-      left: 50%;
-      bottom: 12px;
-      width: 78%;
-      height: 78%;
-      transform: translateX(-50%) translateY(18px);
-      background: linear-gradient(180deg, #fff9ef 0%, #f6ebcf 100%);
-      border: 1px solid rgba(118, 78, 36, 0.16);
-      box-shadow: 0 10px 18px rgba(116, 85, 58, 0.15);
-      transition: transform 1.8s cubic-bezier(0.22, 1, 0.36, 1);
-      overflow: hidden;
-      z-index: 1;
-    }
-
-    .birthday-envelope.opening .birthday-envelope-letter {
-      transform: translateX(-50%) translateY(-80px);
-    }
-
-    .birthday-envelope-letter::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: repeating-linear-gradient(
-        to bottom,
-        rgba(121,82,31,0.05) 0px,
-        rgba(121,82,31,0.05) 1px,
-        transparent 1px,
-        transparent 28px
-      );
-      opacity: 0.6;
+      display: none;
     }
 
     .birthday-envelope-letter-preview {
-      position: absolute;
-      left: 14px;
-      right: 14px;
-      top: 14px;
-      font-family: 'Segoe Print', 'Lucida Handwriting', 'Brush Script MT', 'Segoe Script', cursive;
-      font-size: 14px;
-      line-height: 1.35;
-      color: #6b4c33;
-      z-index: 1;
+      display: none;
     }
 
     .birthday-envelope-btn {
@@ -1535,11 +1499,6 @@
               <div class="birthday-envelope-heart" aria-hidden="true">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" clip-rule="evenodd" /></svg>
               </div>
-              <div class="birthday-envelope-letter">
-                <div class="birthday-envelope-letter-preview">For Julie,
-
-I wanted this to feel like a real little letter for you… 💌</div>
-              </div>
               <div class="birthday-envelope-flap">
                 <svg class="birthday-envelope-flap-outline" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
                   <line x1="0" y1="0" x2="50" y2="50" stroke="#d4c4a8" stroke-width="3" vector-effect="non-scaling-stroke" />
@@ -1894,7 +1853,7 @@ happy birthday baby, enjoy your day. 🌹</div>
         trigger.style.display = 'none';
         paper.classList.add('show');
         container.scrollTop = 0;
-      }, 1500);
+      }, 1200);
     });
 
     /* ORIGINAL VALENTINE FLOW */
