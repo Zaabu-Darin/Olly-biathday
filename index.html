@@ -369,39 +369,41 @@
     .letter-open-stage {
       display: flex;
       justify-content: center;
-      margin-bottom: 22px;
-      perspective: 1400px;
+      align-items: center;
+      margin: 12px 0 22px;
+      min-height: 340px;
     }
 
     .letter-envelope-scene {
       position: relative;
-      width: min(640px, 92vw);
-      height: 420px;
+      width: min(520px, 88vw);
+      height: 300px;
       display: flex;
       justify-content: center;
-      align-items: flex-end;
+      align-items: center;
     }
 
     .letter-envelope-wrap {
       position: relative;
-      width: min(520px, 86vw);
-      height: 320px;
+      width: 420px;
+      max-width: 100%;
+      height: 250px;
     }
 
     .letter-sheet {
       position: absolute;
       left: 50%;
-      bottom: 62px;
-      transform: translateX(-50%) translateY(150px) scale(0.92);
-      width: 82%;
-      height: 240px;
-      border-radius: 18px 18px 8px 8px;
+      bottom: 76px;
+      transform: translateX(-50%) translateY(76px);
+      width: 78%;
+      height: 170px;
+      border-radius: 10px 10px 6px 6px;
       background: linear-gradient(180deg, #fffaf2 0%, #fff3e3 100%);
       border: 1px solid rgba(118, 78, 36, 0.18);
-      box-shadow: 0 14px 28px rgba(116, 85, 58, 0.16);
+      box-shadow: 0 10px 20px rgba(116, 85, 58, 0.14);
       z-index: 1;
       overflow: hidden;
-      transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.6s ease;
+      transition: transform 0.95s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .letter-sheet::before {
@@ -413,69 +415,66 @@
         rgba(120, 78, 36, 0.06) 0px,
         rgba(120, 78, 36, 0.06) 1px,
         transparent 1px,
-        transparent 30px
+        transparent 24px
       );
       opacity: 0.65;
     }
 
     .letter-sheet-preview {
       position: absolute;
-      inset: 24px 26px auto 26px;
+      inset: 16px 18px auto 18px;
       font-family: 'Segoe Print', 'Lucida Handwriting', 'Brush Script MT', 'Segoe Script', cursive;
-      font-size: 19px;
-      line-height: 1.6;
+      font-size: 15px;
+      line-height: 1.45;
       color: #6b4c33;
       z-index: 1;
       opacity: 0.88;
     }
 
-    .letter-envelope-back,
-    .letter-envelope-front,
-    .letter-envelope-flap {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100%;
-      border-radius: 18px;
-    }
-
     .letter-envelope-back {
-      bottom: 0;
-      height: 210px;
-      background: linear-gradient(180deg, #f5e6d3 0%, #ead7c2 100%);
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 190px;
+      background: linear-gradient(180deg, #f4e5d2 0%, #e8d2b7 100%);
       border: 1px solid rgba(118, 78, 36, 0.14);
-      box-shadow: 0 20px 38px rgba(0,0,0,0.12);
+      border-radius: 8px;
+      box-shadow: 0 18px 34px rgba(0,0,0,0.12);
       z-index: 0;
     }
 
     .letter-envelope-front {
-      bottom: 0;
-      height: 190px;
-      background: linear-gradient(180deg, #f2dfc9 0%, #e4cdb1 100%);
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 150px;
+      background: linear-gradient(180deg, #f1dcc3 0%, #e2c6a6 100%);
       border: 1px solid rgba(118, 78, 36, 0.14);
-      clip-path: polygon(0 100%, 0 0, 50% 58%, 100% 0, 100% 100%);
+      border-radius: 0 0 8px 8px;
+      clip-path: polygon(0 100%, 0 0, 50% 68%, 100% 0, 100% 100%);
       z-index: 3;
     }
 
     .letter-envelope-flap {
-      bottom: 96px;
-      height: 130px;
-      background: linear-gradient(180deg, #ead7c2 0%, #ddc3a4 100%);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 120px;
+      background: linear-gradient(180deg, #ead6bf 0%, #ddc1a0 100%);
       border: 1px solid rgba(118, 78, 36, 0.14);
-      clip-path: polygon(0 100%, 50% 0, 100% 100%);
-      transform: translateX(-50%) rotateX(0deg);
-      transform-origin: center bottom;
+      clip-path: polygon(0 0, 50% 100%, 100% 0);
+      transform: rotateX(0deg);
+      transform-origin: center top;
       z-index: 4;
-      transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: transform 1.15s cubic-bezier(0.22, 1, 0.36, 1);
       backface-visibility: hidden;
     }
 
     .letter-bird {
       position: absolute;
       left: 50%;
-      bottom: 128px;
-      transform: translateX(-50%) translateY(30px) scale(0.7);
-      font-size: 38px;
+      bottom: 112px;
+      transform: translateX(-50%) translateY(18px) scale(0.72);
+      font-size: 32px;
       z-index: 2;
       opacity: 0;
       filter: drop-shadow(0 4px 8px rgba(0,0,0,0.12));
@@ -483,34 +482,37 @@
       pointer-events: none;
     }
 
-    .letter-envelope-scene.opening .letter-envelope-flap {
-      transform: translateX(-50%) rotateX(-178deg);
+    .letter-envelope-scene.stage-1 .letter-envelope-flap {
+      transform: rotateX(-55deg);
     }
 
-    .letter-envelope-scene.opening .letter-sheet {
-      transform: translateX(-50%) translateY(-86px) scale(1);
-      box-shadow: 0 24px 42px rgba(116, 85, 58, 0.2);
+    .letter-envelope-scene.stage-2 .letter-envelope-flap {
+      transform: rotateX(-130deg);
     }
 
-    .letter-envelope-scene.opening .letter-bird {
+    .letter-envelope-scene.stage-2 .letter-sheet {
+      transform: translateX(-50%) translateY(8px);
+    }
+
+    .letter-envelope-scene.stage-2 .letter-bird {
       opacity: 1;
-      animation: birdFlyOut 1.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      animation: birdFlyOut 1.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     }
 
     @keyframes birdFlyOut {
       0% {
-        transform: translateX(-50%) translateY(30px) scale(0.75) rotate(-8deg);
+        transform: translateX(-50%) translateY(18px) scale(0.72) rotate(-8deg);
         opacity: 0;
       }
       15% {
         opacity: 1;
       }
-      55% {
-        transform: translateX(36px) translateY(-78px) scale(1.05) rotate(10deg);
+      60% {
+        transform: translateX(26px) translateY(-66px) scale(1) rotate(10deg);
         opacity: 1;
       }
       100% {
-        transform: translateX(180px) translateY(-180px) scale(0.9) rotate(18deg);
+        transform: translateX(120px) translateY(-130px) scale(0.88) rotate(16deg);
         opacity: 0;
       }
     }
@@ -518,7 +520,7 @@
     .letter-open-trigger {
       position: absolute;
       left: 50%;
-      bottom: -54px;
+      bottom: -60px;
       transform: translateX(-50%);
       border: none;
       border-radius: 999px;
@@ -1323,17 +1325,29 @@ happy birthday baby, enjoy your day. 🌹</div>
         if (shell) shell.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }, 80);
     });
+    let letterOpenStage = 0;
     document.getElementById('openLetterBtn').addEventListener('click', () => {
       const scene = document.getElementById('letterEnvelopeScene');
       const paper = document.getElementById('birthdayLetterPaper');
       const trigger = document.getElementById('openLetterBtn');
-      scene.classList.add('opening');
-      trigger.classList.add('hidden');
-      runConfettiFor(1800);
-      setTimeout(() => {
-        paper.classList.add('show');
-        paper.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 920);
+
+      if (letterOpenStage === 0) {
+        scene.classList.add('stage-1');
+        trigger.textContent = 'Open it more 💌';
+        letterOpenStage = 1;
+        return;
+      }
+
+      if (letterOpenStage === 1) {
+        scene.classList.add('stage-2');
+        trigger.classList.add('hidden');
+        runConfettiFor(1800);
+        letterOpenStage = 2;
+        setTimeout(() => {
+          paper.classList.add('show');
+          paper.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 1250);
+      }
     });
 
     const surpriseBtn = document.getElementById('surpriseBtn');
