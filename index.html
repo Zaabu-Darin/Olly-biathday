@@ -1492,6 +1492,33 @@
         </div>
       </div>
 
+      <div id="volumeCheckView" class="modal-view">
+        <div class="birthday-success-wrap">
+          <div class="birthday-balloons">🔊🎶✨</div>
+          <h1 class="modal-title" style="margin-bottom: 14px;">volume up to continue</h1>
+          <p class="subtext" style="max-width: 560px; margin: 0 auto 16px;">Tap the button below to play a quick test sound. If you can hear it, you're good to go.</p>
+          <div class="btn-row">
+            <button type="button" class="cta-btn" id="testSoundBtn">Play test sound</button>
+            <button type="button" class="cta-btn" id="heardItBtn">I can hear it</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="songPageView" class="modal-view">
+        <div class="birthday-success-wrap">
+          <div class="birthday-balloons">🎵❤️🎵</div>
+          <h1 class="modal-title" style="margin-bottom: 14px;">one more thing before the letter...</h1>
+          <p class="subtext" style="max-width: 560px; margin: 0 auto 16px;">just listen for a second baby ❤️</p>
+          <audio id="birthdaySong" preload="auto" style="display:none;">
+            <source src="birthday-song.mp3" type="audio/mpeg" />
+            Your browser does not support the audio element.
+          </audio>
+          <div class="btn-row">
+            <button type="button" class="cta-btn" id="toLetterBtn">Continue to the letter</button>
+          </div>
+        </div>
+      </div>
+
       <div id="birthdayLetterView" class="modal-view">
         <div class="birthday-letter-shell">
           <div class="birthday-letter-envelope-wrap">
@@ -1512,35 +1539,51 @@
           <div class="birthday-letter-paper paper-script" id="birthdayLetterPaper">
             <div class="birthday-kicker">for the birthday girl</div>
             <h1 class="birthday-title">A Poem For You:</h1>
-            <p class="birthday-intro">I wanted this to feel soft, sweet, and personal, like opening a little old love letter meant only for you.</p>
+            <p class="birthday-intro">I hope this poem fully represents how much I care about you</p>
 
             <div class="birthday-grid">
               <div class="letter-card">
                 <h2 class="section-title">A little note for you</h2>
                 <div class="letter-text">Happy birthday baby,
 
-I really just want you to know that I appreciate you so much. Being around you feels easy, fun, soft, and real all at once, and I wanted to make you something that was more than just a text.
+I really just want you to know that I appreciate you so much. You're really sweet and thoughtful so I wanted to make you something that was more than just a text.
 
-You deserve to feel celebrated properly. You deserve love, laughter, peace, and those little moments that make you stop and smile for real.
+This is Julie's day and you deserve to be celebrated properly. You deserve love, laughter and a whole lot more.
 
-I hope this year brings you more happiness, more confidence, more answered prayers, and more moments that remind you how special you are.
-
-And selfishly... I hope I get to be around for a lot more of those moments too.
+I hope this year brings you more happiness, more blessings, more answered prayers, and more moments that remind you how special you are.
 
 Happy birthday pretty girl. ❤️</div>
               </div>
 
               <div class="poem-card">
-                <h2 class="section-title">A little poem</h2>
-                <div class="poem-text">March twenty-six, your special day,
-softest smile in the sweetest way.
-A little light, a little fire,
-you walk in and raise the whole room higher.
+                <h2 class="section-title">tHe J.U.L.I.E-K.A.T.E pOeM</h2>
+                <div class="poem-text">To the girl with the prettiest eyes and the prettiest smile,
+I want this poem to be worth the while.
+To celebrate this time as you turn twenty-two,
+here are 22 things I love about you.
 
-Pretty soul with a golden glow,
-more than you probably even know.
-So here’s my heart in this small display,
-happy birthday baby, enjoy your day. 🌹</div>
+1. smart
+2. great at art
+3. musical genius
+4. best cook
+5. your smile
+6. your eyes
+7. your soft heart
+8. your laugh
+9. your voice
+10. your style
+11. your kindness
+12. your thoughtfulness
+13. your calm energy
+14. your beauty
+15. your creativity
+16. your warmth
+17. your humor
+18. your patience
+19. your sweetness
+20. your presence
+21. the way you care
+22. just you, exactly how you are. 🌹</div>
               </div>
 
               <div class="memory-card">
@@ -1640,6 +1683,8 @@ happy birthday baby, enjoy your day. 🌹</div>
       ttt: document.getElementById('tictactoeView'),
       birthdayLose: document.getElementById('birthdayLoseView'),
       birthdaySuccess: document.getElementById('birthdaySuccessView'),
+      volumeCheck: document.getElementById('volumeCheckView'),
+      songPage: document.getElementById('songPageView'),
       birthdayLetter: document.getElementById('birthdayLetterView'),
       puzzle: document.getElementById('puzzleView'),
       success: document.getElementById('successView'),
@@ -1833,6 +1878,56 @@ happy birthday baby, enjoy your day. 🌹</div>
     /* BIRTHDAY SUCCESS + LETTER */
     document.getElementById('birthdayNextBtn').addEventListener('click', () => {
       container.classList.remove('container--success', 'container--playlist');
+      showView(views.volumeCheck);
+      setTimeout(() => {
+        container.scrollTop = 0;
+      }, 50);
+    });
+
+    document.getElementById('testSoundBtn').addEventListener('click', () => {
+      try {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContextClass) return;
+        const ctx = new AudioContextClass();
+        const oscillator = ctx.createOscillator();
+        const gain = ctx.createGain();
+        oscillator.type = 'sine';
+        oscillator.frequency.value = 880;
+        gain.gain.setValueAtTime(0.0001, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.12, ctx.currentTime + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.35);
+        oscillator.connect(gain);
+        gain.connect(ctx.destination);
+        oscillator.start();
+        oscillator.stop(ctx.currentTime + 0.36);
+      } catch (e) {
+        console.warn('Test sound failed:', e);
+      }
+    });
+
+    document.getElementById('heardItBtn').addEventListener('click', async () => {
+      showView(views.songPage);
+      setTimeout(async () => {
+        container.scrollTop = 0;
+        const song = document.getElementById('birthdaySong');
+        try {
+          song.currentTime = 11; // start at 11 seconds
+
+          // stop at 2 minutes (120s)
+          song.ontimeupdate = () => {
+            if (song.currentTime >= 120) {
+              song.pause();
+            }
+          };
+
+          await song.play();
+        } catch (e) {
+          console.warn('Song autoplay blocked:', e);
+        }
+      }, 50);
+    });
+
+    document.getElementById('toLetterBtn').addEventListener('click', () => {
       container.classList.add('container--birthday-paper');
       showView(views.birthdayLetter);
       setTimeout(() => {
