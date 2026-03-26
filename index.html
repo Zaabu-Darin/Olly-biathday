@@ -30,9 +30,7 @@
       z-index: 10;
     }
 
-    body.show-modal .container { display: flex; }
-
-    .container {
+    body.show-modal .container {
       display: none;
       flex-direction: column;
       text-align: center;
@@ -45,7 +43,7 @@
       min-width: 0;
       min-height: 520px;
       max-height: calc(100vh - 48px);
-      overflow-y: auto;
+      overflow-y: hidden;
       position: relative;
       transform-origin: center center;
       transition: opacity 0.25s ease, transform 0.3s ease;
@@ -370,14 +368,14 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: 12px 0 22px;
-      min-height: 340px;
+      margin: 12px 0 28px;
+      min-height: 360px;
     }
 
     .letter-envelope-scene {
       position: relative;
-      width: min(520px, 88vw);
-      height: 300px;
+      width: min(560px, 90vw);
+      height: 320px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -385,25 +383,25 @@
 
     .letter-envelope-wrap {
       position: relative;
-      width: 420px;
+      width: 460px;
       max-width: 100%;
-      height: 250px;
+      height: 270px;
     }
 
     .letter-sheet {
       position: absolute;
       left: 50%;
-      bottom: 76px;
-      transform: translateX(-50%) translateY(76px);
-      width: 78%;
-      height: 170px;
-      border-radius: 10px 10px 6px 6px;
-      background: linear-gradient(180deg, #fffaf2 0%, #fff3e3 100%);
+      bottom: 74px;
+      transform: translateX(-50%) translateY(88px);
+      width: 72%;
+      height: 165px;
+      border-radius: 8px 8px 4px 4px;
+      background: linear-gradient(180deg, #fff9ef 0%, #f9efd9 100%);
       border: 1px solid rgba(118, 78, 36, 0.18);
       box-shadow: 0 10px 20px rgba(116, 85, 58, 0.14);
       z-index: 1;
       overflow: hidden;
-      transition: transform 0.95s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: transform 1.8s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.8s ease;
     }
 
     .letter-sheet::before {
@@ -435,7 +433,7 @@
       position: absolute;
       inset: auto 0 0 0;
       height: 190px;
-      background: linear-gradient(180deg, #f4e5d2 0%, #e8d2b7 100%);
+      background: linear-gradient(180deg, #f0dcc2 0%, #dfc19a 100%);
       border: 1px solid rgba(118, 78, 36, 0.14);
       border-radius: 8px;
       box-shadow: 0 18px 34px rgba(0,0,0,0.12);
@@ -446,7 +444,7 @@
       position: absolute;
       inset: auto 0 0 0;
       height: 150px;
-      background: linear-gradient(180deg, #f1dcc3 0%, #e2c6a6 100%);
+      background: linear-gradient(180deg, #ead0ae 0%, #dcb98d 100%);
       border: 1px solid rgba(118, 78, 36, 0.14);
       border-radius: 0 0 8px 8px;
       clip-path: polygon(0 100%, 0 0, 50% 68%, 100% 0, 100% 100%);
@@ -458,14 +456,14 @@
       left: 0;
       top: 0;
       width: 100%;
-      height: 120px;
-      background: linear-gradient(180deg, #ead6bf 0%, #ddc1a0 100%);
+      height: 122px;
+      background: linear-gradient(180deg, #e4cba8 0%, #d7b487 100%);
       border: 1px solid rgba(118, 78, 36, 0.14);
       clip-path: polygon(0 0, 50% 100%, 100% 0);
       transform: rotateX(0deg);
       transform-origin: center top;
       z-index: 4;
-      transition: transform 1.15s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: transform 1.6s cubic-bezier(0.22, 1, 0.36, 1);
       backface-visibility: hidden;
     }
 
@@ -473,46 +471,40 @@
       position: absolute;
       left: 50%;
       bottom: 112px;
-      transform: translateX(-50%) translateY(18px) scale(0.72);
+      transform: translateX(-50%) translateY(26px) scale(0.72);
       font-size: 32px;
       z-index: 2;
       opacity: 0;
       filter: drop-shadow(0 4px 8px rgba(0,0,0,0.12));
-      transition: opacity 0.2s ease;
       pointer-events: none;
     }
 
-    .letter-envelope-scene.stage-1 .letter-envelope-flap {
-      transform: rotateX(-55deg);
+    .letter-envelope-scene.opening .letter-envelope-flap {
+      transform: rotateX(-165deg);
     }
 
-    .letter-envelope-scene.stage-2 .letter-envelope-flap {
-      transform: rotateX(-130deg);
+    .letter-envelope-scene.opening .letter-sheet {
+      transform: translateX(-50%) translateY(-86px);
     }
 
-    .letter-envelope-scene.stage-2 .letter-sheet {
-      transform: translateX(-50%) translateY(8px);
-    }
-
-    .letter-envelope-scene.stage-2 .letter-bird {
-      opacity: 1;
-      animation: birdFlyOut 1.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    .letter-envelope-scene.opening .letter-bird {
+      animation: birdFlyOut 2.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     }
 
     @keyframes birdFlyOut {
       0% {
-        transform: translateX(-50%) translateY(18px) scale(0.72) rotate(-8deg);
+        transform: translateX(-50%) translateY(26px) scale(0.72) rotate(-8deg);
         opacity: 0;
       }
-      15% {
+      12% {
         opacity: 1;
       }
-      60% {
-        transform: translateX(26px) translateY(-66px) scale(1) rotate(10deg);
+      56% {
+        transform: translateX(28px) translateY(-82px) scale(1.02) rotate(10deg);
         opacity: 1;
       }
       100% {
-        transform: translateX(120px) translateY(-130px) scale(0.88) rotate(16deg);
+        transform: translateX(140px) translateY(-160px) scale(0.88) rotate(16deg);
         opacity: 0;
       }
     }
@@ -520,7 +512,7 @@
     .letter-open-trigger {
       position: absolute;
       left: 50%;
-      bottom: -60px;
+      bottom: -66px;
       transform: translateX(-50%);
       border: none;
       border-radius: 999px;
@@ -546,40 +538,49 @@
 
     .birthday-letter-paper {
       display: none;
+      width: min(780px, 100%);
+      margin: 28px auto 0;
       background:
-        linear-gradient(180deg, rgba(255,250,243,0.98) 0%, rgba(255,247,236,0.98) 100%),
-        repeating-linear-gradient(
-          to bottom,
-          rgba(120, 78, 36, 0.06) 0px,
-          rgba(120, 78, 36, 0.06) 1px,
-          transparent 1px,
-          transparent 36px
-        );
-      border: 1px solid rgba(118, 78, 36, 0.18);
-      border-radius: 28px;
-      padding: 44px 28px 28px;
-      box-shadow: 0 24px 48px rgba(116, 85, 58, 0.18);
+        radial-gradient(circle at top left, rgba(255,255,255,0.35), transparent 22%),
+        linear-gradient(180deg, #f6ebcf 0%, #ead8ad 100%);
+      border: 1px solid rgba(118, 78, 36, 0.28);
+      border-radius: 0;
+      padding: 72px 52px 48px;
+      box-shadow: 0 18px 36px rgba(93, 63, 22, 0.18);
       position: relative;
-      overflow: hidden;
-      margin-top: 84px;
+      overflow: visible;
+      max-height: none;
     }
 
     .birthday-letter-paper.show {
       display: block;
-      animation: fadeIn 0.45s ease;
+      animation: fadeIn 0.7s ease;
     }
 
     .birthday-letter-paper::before {
-      content: '🎂  🕯️  🌹  ✨  🎈';
+      content: '';
       position: absolute;
-      top: 14px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 22px;
-      opacity: 0.9;
-      white-space: nowrap;
-      line-height: 1;
+      inset: 0;
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          rgba(121, 82, 31, 0.05) 0px,
+          rgba(121, 82, 31, 0.05) 1px,
+          transparent 1px,
+          transparent 34px
+        ),
+        radial-gradient(circle at 15% 18%, rgba(121,82,31,0.06), transparent 24%),
+        radial-gradient(circle at 80% 72%, rgba(121,82,31,0.04), transparent 20%);
       pointer-events: none;
+    }
+
+    .birthday-letter-paper::after {
+      content: '✦';
+      position: absolute;
+      top: 22px;
+      right: 26px;
+      font-size: 22px;
+      color: rgba(121, 82, 31, 0.45);
     }
 
     .paper-script,
@@ -691,20 +692,22 @@
     .surprise-box.show { display: block; animation: fadeIn 0.4s ease; }
 
     .birthday-grid {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 18px;
-      margin-top: 20px;
+      display: block;
+      margin-top: 26px;
     }
 
     .letter-card,
     .poem-card,
     .memory-card {
-      background: rgba(255, 250, 243, 0.88);
-      border-radius: 24px;
-      padding: 24px;
-      border: 1px solid rgba(118, 78, 36, 0.14);
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.35), 0 12px 26px rgba(116, 85, 58, 0.08);
+      background: transparent;
+      border-radius: 0;
+      padding: 0;
+      border: none;
+      box-shadow: none;
+      margin-bottom: 26px;
+      text-align: left;
+      position: relative;
+      z-index: 1;
     }
 
     .section-title {
@@ -723,20 +726,21 @@
 
     .photo-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      margin-top: 14px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 18px;
     }
 
     .photo-frame {
       position: relative;
-      border-radius: 18px;
+      border-radius: 6px;
       overflow: hidden;
-      min-height: 210px;
-      background: rgba(245, 232, 217, 0.92);
-      border: 1px solid rgba(0,0,0,0.08);
+      min-height: 240px;
+      background: rgba(137, 101, 53, 0.08);
+      border: 2px solid rgba(121, 82, 31, 0.18);
       transform: rotate(var(--tilt, 0deg));
       transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 10px 22px rgba(93, 63, 22, 0.12);
     }
 
     .photo-frame:hover {
@@ -764,14 +768,14 @@
 
     .memory-list {
       display: grid;
-      gap: 10px;
-      margin-top: 10px;
+      gap: 12px;
+      margin-top: 18px;
     }
 
     .memory-pill {
-      padding: 12px 14px;
-      border-radius: 16px;
-      background: rgba(255, 218, 233, 0.55);
+      padding: 0;
+      border-radius: 0;
+      background: transparent;
       font-weight: 600;
     }
 
@@ -1320,34 +1324,26 @@ happy birthday baby, enjoy your day. 🌹</div>
     document.getElementById('birthdayNextBtn').addEventListener('click', () => {
       showView(views.birthdayLetter);
       setTimeout(() => {
-        container.scrollTo({ top: 0, behavior: 'smooth' });
-        const shell = document.querySelector('.birthday-letter-shell');
-        if (shell) shell.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 80);
+        container.style.overflowY = 'auto';
+        container.scrollTop = 0;
+      }, 50);
     });
-    let letterOpenStage = 0;
     document.getElementById('openLetterBtn').addEventListener('click', () => {
       const scene = document.getElementById('letterEnvelopeScene');
       const paper = document.getElementById('birthdayLetterPaper');
       const trigger = document.getElementById('openLetterBtn');
+      const bird = document.querySelector('.letter-bird');
 
-      if (letterOpenStage === 0) {
-        scene.classList.add('stage-1');
-        trigger.textContent = 'Open it more 💌';
-        letterOpenStage = 1;
-        return;
-      }
+      scene.classList.add('opening');
+      trigger.classList.add('hidden');
+      if (bird) bird.style.opacity = '1';
+      runConfettiFor(2200);
 
-      if (letterOpenStage === 1) {
-        scene.classList.add('stage-2');
-        trigger.classList.add('hidden');
-        runConfettiFor(1800);
-        letterOpenStage = 2;
-        setTimeout(() => {
-          paper.classList.add('show');
-          paper.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 1250);
-      }
+      setTimeout(() => {
+        paper.classList.add('show');
+        container.style.overflowY = 'auto';
+        paper.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 1850);
     });
 
     const surpriseBtn = document.getElementById('surpriseBtn');
