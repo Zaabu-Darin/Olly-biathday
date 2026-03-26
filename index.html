@@ -412,13 +412,21 @@
 
     .birthday-letter-paper {
       display: none;
-      background: linear-gradient(180deg, #fffaf3 0%, #fff7ec 100%);
-      border: 1px solid rgba(118, 78, 36, 0.15);
+      background:
+        linear-gradient(180deg, rgba(255,250,243,0.98) 0%, rgba(255,247,236,0.98) 100%),
+        repeating-linear-gradient(
+          to bottom,
+          rgba(120, 78, 36, 0.06) 0px,
+          rgba(120, 78, 36, 0.06) 1px,
+          transparent 1px,
+          transparent 36px
+        );
+      border: 1px solid rgba(118, 78, 36, 0.18);
       border-radius: 28px;
-      padding: 28px;
+      padding: 64px 28px 28px;
       box-shadow: 0 24px 48px rgba(116, 85, 58, 0.18);
       position: relative;
-      overflow: hidden;
+      overflow: visible;
     }
 
     .birthday-letter-paper.show {
@@ -429,11 +437,14 @@
     .birthday-letter-paper::before {
       content: '🎂  🕯️  🌹  ✨  🎈';
       position: absolute;
-      top: 14px;
+      top: 18px;
       left: 50%;
       transform: translateX(-50%);
       font-size: 22px;
       opacity: 0.9;
+      white-space: nowrap;
+      line-height: 1;
+      pointer-events: none;
     }
 
     .paper-script,
@@ -441,8 +452,28 @@
     .paper-script .letter-text,
     .paper-script .poem-text,
     .paper-script .memory-pill,
-    .paper-script .photo-caption {
-      font-family: 'Brush Script MT', 'Segoe Script', 'Lucida Handwriting', cursive;
+    .paper-script .photo-caption,
+    .paper-script .section-title,
+    .paper-script .birthday-title,
+    .paper-script .birthday-kicker {
+      font-family: 'Lucida Handwriting', 'Brush Script MT', 'Segoe Script', cursive;
+    }
+
+    .paper-script .birthday-title {
+      font-size: clamp(34px, 4vw, 50px);
+      line-height: 1.2;
+    }
+
+    .paper-script .section-title {
+      font-size: 28px;
+      line-height: 1.2;
+    }
+
+    .paper-script .birthday-intro,
+    .paper-script .letter-text,
+    .paper-script .poem-text {
+      font-size: 20px;
+      line-height: 1.9;
     }
       width: min(900px, 100%);
       margin: 0 auto;
@@ -923,10 +954,9 @@
             <div class="floating-heart">💌</div>
             <div class="floating-heart">✨</div>
             <div class="birthday-kicker">for the birthday girl</div>
-            <h1 class="birthday-title">Happy Birthday Julie 🎂🌹</h1>
+            <h1 class="birthday-title">A Poem For You:</h1>
             <p class="birthday-intro">
-              Today is all about you, and I wanted you to have something that feels soft, personal, and a little fun too.
-              So yeah... if you made it here, that means you passed every level and unlocked the real message.
+              I wanted this to feel soft, sweet, and personal, like opening a little old love letter meant only for you.
             </p>
             <div class="letter-actions">
               <button type="button" class="letter-btn" id="surpriseBtn">tap for a little surprise</button>
@@ -940,7 +970,7 @@
 
           <div class="birthday-grid">
             <div class="letter-card">
-              <h2 class="section-title">A letter for you</h2>
+              <h2 class="section-title">A little note for you</h2>
               <div class="letter-text">Happy birthday baby,
 
 I really just want you to know that I appreciate you so much. Being around you feels easy, fun, soft, and real all at once, and I wanted to make you something that was more than just a text.
@@ -969,7 +999,7 @@ happy birthday baby, enjoy your day. 🌹</div>
           </div>
 
           <div class="memory-card" style="margin-top:18px;">
-            <h2 class="section-title">Us 🤍</h2>
+            <h2 class="section-title">Two Little Birds 🤍</h2>
             <div class="photo-grid">
               <div class="photo-frame" style="--tilt:-2deg;">
                 <img src="images/us-1.jpg" alt="Us photo 1" />
@@ -992,7 +1022,10 @@ happy birthday baby, enjoy your day. 🌹</div>
               <div class="memory-pill">favorite smile: yours</div>
               <div class="memory-pill">favorite birthday girl: still you</div>
               <div class="memory-pill">favorite part of this page: you making it to the end</div>
+              <div class="memory-pill">Don't Forget to Collect Birthday Memories so I can add them to this</div>
             </div>
+            <button type="button" class="reset-btn" id="birthdayResetBtnBottom" style="margin-top:18px;">Reset</button>
+          </div>
           </div>
           </div>
         </div>
@@ -1135,6 +1168,7 @@ happy birthday baby, enjoy your day. 🌹</div>
     document.getElementById('wrongResetBtn').addEventListener('click', resetAll);
     document.getElementById('loseResetBtn').addEventListener('click', resetAll);
     document.getElementById('birthdayResetBtn').addEventListener('click', resetAll);
+    document.getElementById('birthdayResetBtnBottom').addEventListener('click', resetAll);
     document.getElementById('birthdayNextBtn').addEventListener('click', () => showView(views.birthdayLetter));
     document.getElementById('openLetterBtn').addEventListener('click', () => {
       document.getElementById('birthdayLetterPaper').classList.add('show');
