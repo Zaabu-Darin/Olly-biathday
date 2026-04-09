@@ -18,10 +18,50 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background: #FFDAE9;
+      background: linear-gradient(135deg, #FFDAE9 0%, #FFE9F4 35%, #EAD0FF 80%, #D3CBFF 100%);
+      background-size: 220% 220%;
+      animation: backgroundWave 16s ease infinite;
       overflow: auto;
       overflow-x: hidden;
       padding: 24px;
+      cursor: none;
+    }
+
+    .tech-background {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background: radial-gradient(circle at 15% 15%, rgba(255,255,255,0.3), transparent 16%),
+                  radial-gradient(circle at 82% 12%, rgba(255,214,255,0.2), transparent 18%),
+                  radial-gradient(circle at 60% 88%, rgba(255,255,255,0.14), transparent 20%),
+                  radial-gradient(circle at 12% 80%, rgba(255,144,210,0.18), transparent 16%);
+      overflow: hidden;
+      animation: techAmbient 22s ease infinite;
+    }
+
+    .tech-background::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,0.25) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(255,255,255,0.08) 1px, transparent 1px);
+      background-size: 18px 18px, 46px 46px, 46px 46px;
+      opacity: 0.35;
+      mix-blend-mode: screen;
+    }
+
+    .tech-background::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 28% 24%, rgba(255, 111, 217, 0.18), transparent 16%),
+                  radial-gradient(circle at 72% 40%, rgba(255, 255, 255, 0.16), transparent 18%),
+                  radial-gradient(circle at 45% 72%, rgba(255, 194, 242, 0.2), transparent 18%);
+      animation: techGlow 18s ease infinite;
+      opacity: 0.8;
     }
 
     /* Original envelope stage kept */
@@ -57,6 +97,7 @@
       position: relative;
       transform-origin: center center;
       transition: opacity 0.25s ease, transform 0.3s ease;
+      animation: entranceGlow 0.75s ease both;
     }
 
     .modal-inner {
@@ -193,16 +234,19 @@
       line-height: 1.4;
       margin-top: 16px;
       margin-bottom: 32px;
+      animation: titleFloat 0.8s ease both;
     }
 
     /* ===== NEW SELECTOR + BIRTHDAY VIEWS ===== */
     .pill-note {
       display: inline-block;
-      padding: 8px 16px;
+      padding: 12px 20px;
       border-radius: 999px;
-      background: rgba(255, 218, 233, 0.65);
-      font-size: 15px;
+      background: rgba(255, 218, 233, 0.75);
+      font-size: clamp(18px, 2vw, 22px);
       margin-bottom: 18px;
+      animation: badgePulse 6s ease-in-out infinite;
+      box-shadow: 0 0 0 rgba(255, 105, 164, 0.25);
     }
 
     .option-grid {
@@ -215,19 +259,25 @@
     }
 
     .option-card {
-      background: rgba(255, 218, 233, 0.45);
-      border: 1px solid rgba(0,0,0,0.08);
+      background: linear-gradient(135deg, #FFB3D8 0%, #FFC8FF 45%, #B3A1FF 100%);
+      background-size: 200% 200%;
+      border: 1px solid rgba(255,255,255,0.45);
       border-radius: 20px;
       padding: 26px 18px;
       font-size: 22px;
       font-weight: 700;
       cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      transition: transform 0.35s ease, box-shadow 0.35s ease, background-position 4s ease, border-color 0.35s ease;
+      box-shadow: 0 16px 30px rgba(255, 105, 164, 0.22), inset 0 0 0 1px rgba(255,255,255,0.35);
+      background-position: 0% 50%;
+      animation: buttonGlow 6s ease infinite;
+      will-change: transform;
     }
 
     .option-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 24px 48px rgba(255, 105, 164, 0.28), inset 0 0 0 1px rgba(255,255,255,0.5);
+      background-position: 100% 50%;
     }
 
     .wrong-wrap,
@@ -268,39 +318,48 @@
     .letter-btn,
     .cta-btn {
       padding: 12px 24px;
-      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      background: linear-gradient(135deg, #ff7ba8 0%, #ffb3ef 40%, #8c78ff 100%);
+      background-size: 220% 220%;
       color: white;
       border: none;
       border-radius: 999px;
       font-size: 16px;
       cursor: pointer;
       font-weight: 700;
-      transition: all 0.3s ease;
-      box-shadow: 0 12px 24px rgba(245, 87, 108, 0.22);
+      transition: transform 0.35s ease, box-shadow 0.35s ease, background-position 4s ease;
+      box-shadow: 0 16px 32px rgba(255, 121, 183, 0.28), inset 0 0 0 1px rgba(255,255,255,0.25);
+      animation: buttonGlow 6s ease infinite;
     }
 
     .choice-btn:hover,
     .dob-submit:hover,
     .letter-btn:hover,
     .cta-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 16px 28px rgba(245, 87, 108, 0.28);
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 22px 42px rgba(255, 121, 183, 0.4), inset 0 0 0 1px rgba(255,255,255,0.35);
+      background-position: 100% 50%;
     }
 
     .reset-btn {
-      background: none;
-      border: none;
-      color: #666;
+      background: rgba(255, 218, 233, 0.55);
+      color: #111;
+      border: 1px solid rgba(255,255,255,0.75);
+      border-radius: 999px;
       font-size: 0.95em;
       cursor: pointer;
-      text-decoration: underline;
-      padding: 8px 12px;
+      text-decoration: none;
+      padding: 12px 18px;
       margin-top: 8px;
       font-family: inherit;
+      box-shadow: 0 14px 28px rgba(255, 145, 191, 0.24);
+      transition: transform 0.35s ease, box-shadow 0.35s ease, background 0.35s ease;
     }
 
     .reset-btn:hover {
       color: #111;
+      transform: translateY(-2px) scale(1.01);
+      background: rgba(255, 218, 233, 0.8);
+      box-shadow: 0 20px 36px rgba(255, 145, 191, 0.32);
     }
 
     .dob-card {
@@ -1202,6 +1261,49 @@
       display: block;
       width: 100%;
       height: auto;
+      animation: heartbeat 5s ease-in-out infinite;
+    }
+
+    .custom-cursor {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      pointer-events: none;
+      background: radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(255,118,197,0.22) 55%, rgba(255,118,197,0) 100%);
+      box-shadow: 0 0 24px rgba(255, 103, 165, 0.55), 0 0 40px rgba(255, 192, 235, 0.25);
+      transform: translate(-50%, -50%);
+      z-index: 9999;
+      transition: width 0.18s ease, height 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+      mix-blend-mode: screen;
+    }
+
+    .custom-cursor::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      box-shadow: 0 0 30px rgba(255, 196, 239, 0.45);
+      opacity: 0.75;
+      transition: opacity 0.18s ease;
+    }
+
+    .custom-cursor.cursor-hover {
+      width: 36px;
+      height: 36px;
+      background: radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(255, 69, 161,0.28) 50%, rgba(255, 69, 161,0) 100%);
+      box-shadow: 0 0 34px rgba(255, 117, 199, 0.7), 0 0 60px rgba(255, 200, 242, 0.35);
+    }
+
+    .custom-cursor.cursor-hover::before {
+      opacity: 1;
+    }
+
+    @keyframes buttonGlow {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
     }
 
     #playlistView {
@@ -1251,7 +1353,8 @@
       max-width: none;
     }
 
-    .video-card video {
+    .video-card video,
+    .video-card img {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -1263,6 +1366,42 @@
       height: 100%;
       object-fit: contain;
       display: block;
+    }
+
+    @keyframes backgroundWave {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    @keyframes techAmbient {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-8px) scale(1.01); }
+    }
+
+    @keyframes techGlow {
+      0%, 100% { opacity: 0.8; transform: scale(1); }
+      50% { opacity: 0.95; transform: scale(1.02); }
+    }
+
+    @keyframes entranceGlow {
+      from { opacity: 0; transform: translateY(10px) scale(0.99); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes titleFloat {
+      from { opacity: 0; transform: translateY(8px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes badgePulse {
+      0%, 100% { box-shadow: 0 0 0 rgba(255, 105, 164, 0.2); }
+      50% { box-shadow: 0 0 28px rgba(255, 105, 164, 0.18); }
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      25%, 75% { transform: scale(1.02); }
+      50% { transform: scale(0.98); }
     }
 
     @media (max-width: 900px) {
@@ -1389,6 +1528,7 @@
   </style>
 </head>
 <body>
+  <div class="tech-background" aria-hidden="true"></div>
   <!-- ORIGINAL STARTING ENVELOPE KEPT -->
   <div id="envelopeStage">
     <div class="envelope" id="envelope">
@@ -1408,12 +1548,12 @@
     <div class="modal-inner">
       <!-- NEW SELECTOR -->
       <div id="selectorView" class="modal-view">
-        <div class="pill-note">Juleeeeh Baby</div>
+        <div class="pill-note">For First Lady's Eyes ONLY</div>
         <h1 class="modal-title">Today is?</h1>
         <div class="option-grid">
           <button class="option-card" id="nothingChoice">Nothing</button>
-          <button class="option-card" id="birthdayChoice">Birthday🎈</button>
-          <button class="option-card" id="valentineChoice">Valentines🌹</button>
+          <button class="option-card" id="birthdayChoice">Your Birthday🎈</button>
+          <button class="option-card" id="valentineChoice">Click me AFTER!!🌹</button>
         </div>
       </div>
 
@@ -1428,7 +1568,7 @@
 
       <div id="dobView" class="modal-view">
         <h1 class="modal-title">confirm date of birth</h1>
-        <p class="subtext">only My Kababy's birth date works here!</p>
+        <p class="subtext">only My First Lady's birth date works here!</p>
         <div class="dob-card">
           <label class="dob-label">enter your date of birth</label>
           <div class="dob-inputs">
@@ -1483,11 +1623,11 @@
         <div class="birthday-success-wrap">
           <div class="birthday-balloons">🎈🎂🌹✨</div>
           <h1 class="modal-title" style="margin-bottom: 14px;">Took you long enough...</h1>
-          <p class="subtext" style="font-size:20px; font-weight:700; color:#111; margin-bottom: 16px;">Happy 22nd Birthday Julie-Kate Gathoni Gichuki my baby!!!!❤️</p>
+          <p class="subtext" style="font-size:20px; font-weight:700; color:#111; margin-bottom: 16px;">Happy Nasty 19!!!!❤️. BOOMMMBOOCLLAATTT</p>
           <div class="success-gif-wrap" style="max-width: 420px; margin-bottom: 18px;">
             <img src="cr7siu.gif" alt="Birthday celebration gif" />
           </div>
-          <p class="subtext" style="max-width: 560px; margin: 0 auto 12px;">Hope you enjoyed your day. Can't wait to spend the 29th with you</p>
+          <p class="subtext" style="max-width: 560px; margin: 0 auto 12px;">Hope you enjoyed your day. </p>
           <button type="button" class="cta-btn" id="birthdayNextBtn">Click here</button>
         </div>
       </div>
@@ -1507,7 +1647,8 @@
       <div id="songPageView" class="modal-view">
         <div class="birthday-success-wrap">
           <div class="birthday-balloons">🎵❤️🎵</div>
-          <h1 class="modal-title" style="margin-bottom: 14px;">year 22, too hot to handle...</h1>
+          <h1 class="modal-title" style="margin-bottom: 14px;">You fine, you da birthday girl</h1>
+           <h1 class="modal-title" style="margin-bottom: 14px;">You loud, you da birthday song</h1>
           <p class="subtext" style="max-width: 560px; margin: 0 auto 16px;">this took a minute so i fr hope you're liking this ❤️</p>
           <audio id="birthdaySong" preload="auto" style="display:none;">
             <source src="birthday-song.mp3" type="audio/mpeg" />
@@ -1539,16 +1680,16 @@
           <div class="birthday-letter-paper paper-script" id="birthdayLetterPaper">
             <div class="birthday-kicker">for the birthday girl</div>
             <h1 class="birthday-title">A Poem For You:</h1>
-            <p class="birthday-intro">I hope this poem fully represents how much I care about you</p>
+            <p class="birthday-intro">Sum Slight for the da Birthday Girl</p>
 
             <div class="birthday-grid">
               <div class="letter-card">
                 <h2 class="section-title">A little note for you</h2>
-                <div class="letter-text">Happy birthday baby,
+                <div class="letter-text">Happy birthday Miss Ma'am,
 
-I really just want you to know that I appreciate you so much. You're really sweet and thoughtful so I wanted to make you something that was more than just words.
+I really just want you to know that I appreciate you so much. You're really sweet and thoughtful.
 
-This is Julie's day and you deserve to be celebrated properly. You deserve love, laughter and a whole lot more.
+This is Livvy day and you deserve to be celebrated properly. You deserve fun, laughter and a whole lot more.
 
 I hope this year brings you more happiness, more blessings, more answered prayers, and more moments that remind you how special you are.
 
@@ -1556,54 +1697,31 @@ Happy birthday pretty girl. ❤️</div>
               </div>
 
               <div class="poem-card">
-                <h2 class="section-title">tHe J.U.L.I.E-K.A.T.E pOeM</h2>
-                <div class="poem-text">To the girl with the prettiest eyes and the prettiest smile,
-I want this poem to be worth the while.
-To celebrate this time as you turn twenty-two,
-here are 22 things I love about you.
-
-1. smart
-2. musical genius
-3. great artist
-4. you make my favorite food
-5. your'e funny asf
-6. definitely your eyes
-7. your soft heart
-8. your laugh
-9. your voice
-10. your style
-11. your kindness
-12. your thoughtfulness
-13. baddie
-14. your beauty
-15. your creativity
-16. your warmth
-17. your smile
-18. your "patience"
-19. your sweetness
-20. your presence
-21. the way you care
-22. just you, exactly how you are. 🌹</div>
+                <h2 class="section-title">tHe Olly pEom</h2>
+                <div class="poem-text">To this one annoyingly girl with the prettiest  brown eyes and a slight level of autism,
+Roses are red violets are blue. BLAh bLaH BlAh, this is really just for you.
+Your smile, your laugh, your vibe, your energy, your kindness, your creativity, your passion, your love for food.
+Perfect, wouldn't change you🌹</div>
               </div>
 
               <div class="memory-card">
-                <h2 class="section-title">Two Little Birds 🤍</h2>
+                <h2 class="section-title">Birthday Dump🤍</h2>
                 <div class="photo-grid">
                   <div class="photo-frame" style="--tilt:-2deg;">
-                    <img src="images/us-1.jpeg" alt="Us photo 1" />
-                    <div class="photo-caption">three little birds</div>
+                    <img src="images/us-1.jpg" alt="Us photo 1" />
+                    <div class="photo-caption">classy baddie</div>
                   </div>
                   <div class="photo-frame" style="--tilt:2deg;">
-                    <img src="images/us-2.jpeg" alt="Us photo 2" />
-                    <div class="photo-caption">unc &amp; aunt</div>
+                    <img src="images/us-2.jpg" alt="Us photo 2" />
+                    <div class="photo-caption">Hoco baddie</div>
                   </div>
                   <div class="photo-frame" style="--tilt:1deg;">
                     <img src="images/us-3.jpeg" alt="Us photo 3" />
-                    <div class="photo-caption">baddie</div>
+                    <div class="photo-caption"> Gym baddie</div>
                   </div>
                   <div class="photo-frame" style="--tilt:-1deg;">
-                    <img src="images/us-4.jpeg" alt="Us photo 4" />
-                    <div class="photo-caption">peng ting innit bruvv</div>
+                    <img src="images/baddie.jpg" alt="Us photo 4" />
+                    <div class="photo-caption">Tropical Baddie</div>
                   </div>
                 </div>
                 <div class="memory-list">
@@ -1621,24 +1739,23 @@ here are 22 things I love about you.
 
       <!-- ORIGINAL VALENTINE FLOW KEPT -->
       <div id="puzzleView" class="modal-view">
-        <h1 class="modal-title">Dear Julie🌹...</h1>
+        <h1 class="modal-title">Solve me!!🌹...</h1>
         <div class="puzzle-container" id="puzzleContainer">
           <div class="puzzle-grid-wrap" id="puzzleGridWrap">
             <div class="puzzle-grid" id="puzzleGrid"></div>
             <div class="puzzle-full-image-overlay" id="puzzleFullImageOverlay">
-              <img src="images/full-image.png" alt="" />
+              <img src="images/full-image.PNG" alt="" />
             </div>
           </div>
         </div>
         <div class="puzzle-reveal-text" id="puzzleRevealText">
-          <p class="complete-line">...#Sorry 4 da wait baby.</p>
-          <p class="valentine-question">Will you be my Valentine?</p>
-          <button type="button" class="yes-only-btn" id="yesBtn">Yes</button>
+          <p class="complete-line">...#2BIGBACKS.</p>
+          <button type="button" class="yes-only-btn" id="yesBtn">CLICK ME</button>
         </div>
       </div>
 
       <div id="successView" class="modal-view">
-        <p class="modal-title">🫦Yessir! Click the button at the bottom...</p>
+        <p class="modal-title">🫦Yessir! Not Bad for a Nerd huh...</p>
         <div class="success-gif-wrap">
           <img src="giphy.gif" alt="" />
         </div>
@@ -1646,19 +1763,13 @@ here are 22 things I love about you.
       </div>
 
       <div id="playlistView" class="modal-view">
-        <p class="modal-title playlist-title">Scan this QR code to see this playlist I made you❤️🎵</p>
+        <p class="modal-title playlist-title">POV: YOU AFTER SERING THIS BDAY SURPRISE</p>
         <div class="playlist-row">
           <div class="media-card video-card">
             <div class="float-inner">
-              <video autoplay loop muted playsinline>
-                <source src="images/jvideo.mp4" type="video/mp4">
-              </video>
+              <img src="images/last-image.jpeg" alt="Last image" />
             </div>
-          </div>
-          <div class="media-card qr-card">
-            <div class="float-inner">
-              <img src="images/qr.png" alt="Playlist QR code" />
-            </div>
+          
           </div>
         </div>
         <button type="button" class="reset-btn" id="resetBtn">Reset</button>
@@ -1738,7 +1849,7 @@ here are 22 things I love about you.
 
     function normalizeMonth(value) {
       const v = value.trim().toLowerCase();
-      const monthMap = { march: 'march', mar: 'march', '03': 'march', '3': 'march' };
+      const monthMap = { april: 'april', apr: 'april', '04': 'april', '04': 'april' };
       return monthMap[v] || v;
     }
 
@@ -1746,7 +1857,7 @@ here are 22 things I love about you.
       const month = normalizeMonth(dobMonth.value);
       const day = dobDay.value.trim();
       const year = dobYear.value.trim();
-      const correct = month === 'march' && day === '26' && year === '2004';
+      const correct = month === 'april' && day === '11' && year === '2007';
       dobError.textContent = '';
       if (correct) {
         initTicTacToe();
@@ -1911,7 +2022,7 @@ here are 22 things I love about you.
         container.scrollTop = 0;
         const song = document.getElementById('birthdaySong');
         try {
-          song.currentTime = 11; // start at 11 seconds
+          song.currentTime = 0; // start from the beginning
 
           // stop at 2 minutes (120s)
           song.ontimeupdate = () => {
@@ -2097,6 +2208,36 @@ here are 22 things I love about you.
       document.body.appendChild(confetti);
       setTimeout(() => confetti.remove(), (duration + 0.5) * 1000);
     }
+
+    // custom glowing cursor tracker
+    const customCursor = document.createElement('div');
+    customCursor.className = 'custom-cursor';
+    document.body.appendChild(customCursor);
+
+    let cursorTargetX = window.innerWidth / 2;
+    let cursorTargetY = window.innerHeight / 2;
+    let cursorX = cursorTargetX;
+    let cursorY = cursorTargetY;
+
+    document.addEventListener('mousemove', (event) => {
+      cursorTargetX = event.clientX;
+      cursorTargetY = event.clientY;
+    });
+
+    const hoverTargets = document.querySelectorAll('button, .option-card, a, input, .media-card');
+    hoverTargets.forEach((target) => {
+      target.addEventListener('mouseenter', () => customCursor.classList.add('cursor-hover'));
+      target.addEventListener('mouseleave', () => customCursor.classList.remove('cursor-hover'));
+    });
+
+    function animateCustomCursor() {
+      cursorX += (cursorTargetX - cursorX) * 0.18;
+      cursorY += (cursorTargetY - cursorY) * 0.18;
+      customCursor.style.transform = `translate(${cursorX}px, ${cursorY}px) translate(-50%, -50%)`;
+      requestAnimationFrame(animateCustomCursor);
+    }
+
+    requestAnimationFrame(animateCustomCursor);
   </script>
 </body>
 </html>
